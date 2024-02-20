@@ -6,6 +6,8 @@ export const Game_DB = (() => {
   return {
     getAllGames: () => games,
 
+    getGameById: (id: number) => games.find((game) => game.idGame === id)!,
+
     addGame: (game: Game) => games.push(game),
   };
 })();
