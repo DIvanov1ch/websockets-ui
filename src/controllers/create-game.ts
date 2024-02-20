@@ -11,6 +11,8 @@ export const createGame = (room: RoomData) => {
     idGame: gameId,
     firstPlayerId: firstPlayer.index,
     secondPlayerId: secondPlayer.index,
+    ships: new Map(),
+    turn: null,
   };
   Game_DB.addGame(game);
 

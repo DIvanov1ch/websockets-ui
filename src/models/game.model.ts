@@ -1,9 +1,12 @@
-import { Position } from './ships.model';
+import { Position, Ship } from './ships.model';
+
 
 export interface Game {
   idGame: number;
   firstPlayerId: number;
   secondPlayerId: number;
+  ships: Map<number, Ship[]>;
+  turn: number | null;
 }
 
 export interface GameData {
@@ -32,7 +35,7 @@ export interface RandomAttack {
 }
 
 export interface Turn {
-  currentPlayer: number;
+  currentPlayer: number | null;
 }
 
 export interface Winner {

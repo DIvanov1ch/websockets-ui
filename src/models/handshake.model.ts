@@ -1,4 +1,4 @@
-import { GameData } from './game.model';
+import { GameData, Turn } from './game.model';
 import {
   LoginRequestData,
   LoginResponseData,
@@ -16,7 +16,8 @@ export type HandshakeData =
   | RoomData[]
   | GameData
   | ShipsRequestData
-  | ShipsResponseData;
+  | ShipsResponseData
+  | Turn;
 
 export interface Handshake {
   type: string;
