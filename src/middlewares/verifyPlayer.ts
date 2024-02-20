@@ -1,4 +1,4 @@
-import { LoginRequestData, Player } from 'src/models/player.model';
+import { LoginRequestData, Player } from '../models/player.model';
 import { Players_DB } from '../data-bases/players.db';
 
 export const verifyPlayer = (credentials: LoginRequestData): Player | null => {

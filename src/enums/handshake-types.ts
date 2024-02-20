@@ -1,4 +1,4 @@
-export enum RequestTypes {
+export enum HandshakeTypes {
   REG = 'reg',
   UPDATE_WINNERS = 'update_winners',
   CREATE_ROOM = 'create_room',
