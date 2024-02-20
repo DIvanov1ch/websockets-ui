@@ -1,5 +1,11 @@
 import { Position } from './ships.model';
 
+export interface Game {
+  idGame: number;
+  firstPlayerId: number;
+  secondPlayerId: number;
+}
+
 export interface GameData {
   idGame: number;
   idPlayer: number;
