@@ -1,12 +1,24 @@
-import { Position, Ship } from './ships.model';
+import { RoomUser } from './room.model';
+import { Position, Ship, ShipType } from './ships.model';
 
+export type ShipOnBoard = {
+  head: Position;
+  type: ShipType;
+  positions: Position[];
+  length: number;
+  shots: number;
+  direction: boolean;
+};
 
 export interface Game {
   idGame: number;
-  firstPlayerId: number;
-  secondPlayerId: number;
-  ships: Map<number, Ship[]>;
+  playerIds: number[];
+  shipsMap: Map<number, Ship[]>;
   turn: number | null;
+  boards: Map<number, ShipOnBoard[]>;
+  score: { [key: string]: number };
+  shots: Map<number, Set<string>>;
+  singlePlay: boolean;
 }
 
 export interface GameData {
@@ -14,14 +26,14 @@ export interface GameData {
   idPlayer: number;
 }
 
-export interface AttackResponse {
+export interface AttackRequest {
   gameId: number;
   x: number;
   y: number;
   indexPlayer: number;
 }
 
-type AttackStatus = 'miss' | 'killed' | 'shot';
+export type AttackStatus = 'miss' | 'killed' | 'shot';
 
 export interface AttackResponse {
   position: Position;
@@ -41,3 +53,17 @@ export interface Turn {
 export interface Winner {
   winPlayer: number;
 }
+
+export type GameState = { game: Game | undefined; isReady: boolean };
+
+export interface SinglePlayerParams {
+  singlePlay: true;
+  playerId: number;
+}
+
+export interface MultiplayersParams {
+  singlePlay: false;
+  roomUsers: RoomUser[];
+}
+
+export type GameParams = SinglePlayerParams | MultiplayersParams;

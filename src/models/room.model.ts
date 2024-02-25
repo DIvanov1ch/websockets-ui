@@ -11,3 +11,5 @@ export interface RoomData {
   roomId: number;
   roomUsers: RoomUser[];
 }
+
+export type RoomState = { roomUsers: RoomUser[]; isReady: boolean };

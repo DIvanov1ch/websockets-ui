@@ -1,11 +1,13 @@
-import { WebSocket } from "ws";
+import { WebSocket } from 'ws';
 
 export interface Player {
   name: string;
   index: number;
   password: string;
   wins: number;
-  ws: WebSocket;
+  ws: WebSocket | null;
+  error: boolean;
+  errorText: string;
 }
 
 export interface LoginRequestData {
@@ -26,3 +28,5 @@ export interface WinnerData {
 }
 
 export type WinnersResponseData = WinnerData[];
+
+// export type LoginResult = { error: boolean; errorText: string };
