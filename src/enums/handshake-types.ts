@@ -11,4 +11,5 @@ export enum HandshakeTypes {
   RANDOM_ATTACK = 'randomAttack',
   TURN = 'turn',
   FINISH = 'finish',
+  SINGLE_PLAY = 'single_play',
 }
