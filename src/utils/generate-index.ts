@@ -2,30 +2,20 @@ import { randomInt } from 'node:crypto';
 import { Players_DB } from '../data-bases/players.db';
 import { Rooms_DB } from '../data-bases/rooms.db';
 import { Game_DB } from '../data-bases/games.db';
-
-const END_OF_RANGE = 2 ** 48 - 1;
+import { END_OF_INTEGER_RANGE } from '../constants';
 
 type IndexType = 'room' | 'player' | 'game';
 
-const findUser = (index: number) =>
-  [...Players_DB.getAllPlayers()].find((player) => player.index === index);
-
-const findRoom = (index: number) =>
-  Rooms_DB.getAllRooms().find((room) => room.roomId === index);
-
-const findGame = (index: number) =>
-  Game_DB.getAllGames().find((game) => game.idGame === index);
-
 export const generateIndex = (type: IndexType): number => {
-  let index = randomInt(END_OF_RANGE);
-  const existIndex =
+  let index = randomInt(1, END_OF_INTEGER_RANGE);
+  const isExistingIndex =
     type === 'player'
-      ? findUser(index)
+      ? !!Players_DB.getPlayerById(index)
       : type === 'room'
-        ? findRoom(index)
-        : findGame(index);
+        ? !!Rooms_DB.getRoomById(index)
+        : !!Game_DB.getGameById(index);
 
-  if (existIndex) {
+  if (isExistingIndex) {
     index = generateIndex(type);
   }
 

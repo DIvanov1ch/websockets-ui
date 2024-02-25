@@ -1,4 +1,4 @@
-export type ParsedData = object | [] | string | number | boolean | null;
+import { ParsedData } from "../models/handshake.model";
 
 export const getParsedData = (data: string): ParsedData => {
   try {
