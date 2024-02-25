@@ -1,27 +1,33 @@
 import { WebSocket } from 'ws';
-import { LoginRequestData, Player } from '../models/player.model';
-import { stringify } from '../utils/stringify';
+import { Player } from '../models/player.model';
 
 export const Players_DB = (() => {
   const players = new Map<string, Player>();
 
   return {
-    getPlayer: (credentials: LoginRequestData) =>
-      players.get(stringify(credentials))!,
+    getPlayer: (name: string) => players.get(name)!,
 
     getPlayerByWs: (ws: WebSocket) =>
       [...players.values()].find((player) => player.ws === ws),
 
-    hasPlayer: (credentials: LoginRequestData) =>
-      players.has(stringify(credentials)),
+    hasPlayer: (name: string) => players.has(name),
 
-    addPlayer: (credentials: LoginRequestData, player: Player) => {
-      players.set(stringify(credentials), player);
+    addNewPlayer: (player: Player) => {
+      const { name } = player;
+      players.set(name, player);
     },
 
     getPlayerById: (id: number) =>
       [...players.values()].find((player) => player.index === id),
 
     getAllPlayers: () => players.values(),
+
+    addVictory: (id: number) => {
+      const player = [...players.values()].find(
+        (player) => player.index === id,
+      )!;
+      const { wins } = player;
+      player.wins = wins + 1;
+    },
   };
 })();

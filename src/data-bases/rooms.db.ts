@@ -1,26 +1,36 @@
 import { RoomData, RoomUser } from '../models/room.model';
-import { stringify } from '../utils/stringify';
 
 export const Rooms_DB = (() => {
-  const rooms: RoomData[] = [];
-  const roomsInGame: RoomData[] = [];
+  const rooms = new Map<number, RoomData>();
 
   return {
-    getAllRooms: () => rooms,
+    getAllRooms: () => [...rooms.values()],
 
-    addRoom: (room: RoomData) => rooms.push(room),
+    getRoomById: (roomId: number) => rooms.get(roomId),
 
-    getRoomWithUser: (user: RoomUser): RoomData | undefined =>
-      rooms.find((room) =>
-        room.roomUsers.find((u) => stringify(u) === stringify(user)),
+    addUserToRoom: (roomId: number, user: RoomUser) => {
+      rooms.get(roomId)?.roomUsers.push(user);
+    },
+
+    removeUserFromRoom: (roomId: number, userId: number) => {
+      const room = rooms.get(roomId);
+      const index = room?.roomUsers.findIndex((user) => user.index === userId);
+      if (index !== undefined) {
+        room?.roomUsers.splice(index, 1);
+      }
+    },
+
+    getRoomWithUser: (userId: number) =>
+      [...rooms.values()].find((room) =>
+        room.roomUsers.find((user) => user.index === userId),
       ),
 
-    getRoomById: (id: number) => rooms.find((room) => (room.roomId = id)),
+    getUsersInRoom: (roomId: number) => rooms.get(roomId)?.roomUsers || [],
 
-    changeRoomStatus: (id: number) => {
-      const index = rooms.findIndex((room) => room.roomId = id);
-      const roomToMove = rooms.splice(index, 1).pop()!;
-      roomsInGame.push(roomToMove);
+    addRoom: (room: RoomData) => rooms.set(room.roomId, room),
+
+    removeRoom: (id: number) => {
+      rooms.delete(id);
     },
   };
 })();
