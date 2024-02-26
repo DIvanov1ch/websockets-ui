@@ -12,6 +12,6 @@ export const getBotAttack = (ws: WebSocket, gameId: number) => {
     return;
   }
 
-  console.log('Bot is thinking for 4s ...');
+  console.log(`Bot is thinking for ${BOT_DELAY / 1000}s ...`);
   setTimeout(() => onAttack(ws, game, BOT_ID, position), BOT_DELAY);
 };

@@ -10,6 +10,10 @@ const port = Number(process.env.PORT) || DEFAULT_PORT;
 export const wss = new WebSocketServer({ port });
 
 wss.on('connection', (ws) => {
+  console.log('connected');
+  console.log(`Number of clients: ${wss.clients.size}`);
+  console.log();
+
   ws.on('error', console.error);
 
   ws.on('message', onMessage);

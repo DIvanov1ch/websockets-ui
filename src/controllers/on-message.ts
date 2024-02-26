@@ -113,7 +113,7 @@ export function onMessage(this: WebSocket, req: string): void {
     const { turn, singlePlay } = game;
 
     if (turn !== indexPlayer) {
-      console.log(`--- turnId: ${turn}, attackId: ${indexPlayer}`);
+      console.log(`--- turnId: ${turn}, attackId: ${indexPlayer}. Not your turn!`);
       console.log();
       return;
     }

@@ -9,6 +9,8 @@ export function onClose(this: WebSocket) {
   const player = Players_DB.getPlayerByWs(this);
   if (player) {
     const { index, name } = player;
+    console.log(`${name} has logged out`);
+    console.log();
 
     clearRoom(this, index);
 
@@ -18,8 +20,6 @@ export function onClose(this: WebSocket) {
       onVictory(this, game, opponentId);
     }
     player.ws = null;
-    console.log(`${name} has logged out`);
-    console.log();
     return;
   }
   console.log('disconnected');
