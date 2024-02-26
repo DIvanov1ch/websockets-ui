@@ -10,4 +10,4 @@ export const END_OF_INTEGER_RANGE = 2 ** 48 - 1;
 
 export const BOT_ID = 0;
 
-export const BOT_DELAY = 4000; 
+export const BOT_DELAY = 3000; 
